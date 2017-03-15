@@ -1,10 +1,13 @@
 #利用forkmanager和anyevent-server实现类似nginx的surpervisor和worker模式
+
 nginx启动后，会根据worker配置数量fork对应进程数，同时启动父进程作为surpervisor，当worker进程数减少时会自动补充对应worker，我们的目标是利用forkmanager实现该功能，提供给httpserver使用。
+
 ##思路
 * 利用forkmanager的on_start和on_finish事件，记录进入和退出的子进程；
 * 利用forkmanager的start和finish控制总开启数量；
 * 父进程注册TERM、INT、KILL信号，当退出进程号和父进程相同，发送term信号给各个子进程终止
 * 子进程使用ae signal模块监听TERM、INT、KILL三种信号关闭ev循环并退出
+
 ##实现
 * 启动5个线程worker，curl测试服务正常
 ```
@@ -39,7 +42,9 @@ root      4021 27832  0 15:24 pts/3    00:00:00 grep anyevent-http-server.pl
 root      4036 27832  0 15:24 pts/3    00:00:00 grep anyevent-http-server.pl
 [1]+  Done                    nohup perl anyevent-http-server.pl -t 5
 ```
+
 ##benchmark
+
 ###并发100 5000连接
 * 1 worker模式
 Requests per second:    682.94 [#/sec] (mean)
@@ -55,12 +60,10 @@ Requests per second:    876.04 [#/sec] (mean)
 ###打开keepalive 并发100 5000连接
 Requests per second:    5357.12 [#/sec] (mean)
 
-##TODO
-receive http req to use coro get snmp、telnet、ssh session
-
 #接收http请求后，利用coro-telnet和coro-snmp实现协程建立和设备交互session完成请求指标并返回
-通过协程组进行设备交互，使用async_pool监听完成状态，通过anyevent::timer异步实现状态和log的response。
-附上http请求和telnet服务结果，发送一次http请求，请50台设备做show users只要6秒钟就可以返回
+
+* 通过协程组进行设备交互，使用async_pool监听完成状态，通过anyevent::timer异步实现状态和log的response。
+* 附上http请求和telnet服务结果，发送一次http请求，请50台设备做show users只要6秒钟就可以返回
 ```
 -bash-4.3$ time curl http://127.0.0.10:19999?pretty -d '{
 >     "hostip": "1.1.1.1,2.2.2.2,3.3.3.3",

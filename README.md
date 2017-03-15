@@ -1,5 +1,4 @@
 #利用forkmanager和anyevent-server实现类似nginx的surpervisor和worker模式
-
 nginx启动后，会根据worker配置数量fork对应进程数，同时启动父进程作为surpervisor，当worker进程数减少时会自动补充对应worker，我们的目标是利用forkmanager实现该功能，提供给httpserver使用。
 
 ##思路

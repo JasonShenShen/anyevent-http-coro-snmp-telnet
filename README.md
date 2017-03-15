@@ -80,7 +80,7 @@ bash-4.1$ curl http://127.0.0.1:19999?pretty -d '{
 }'
 show users
     Line       User       Host(s)              Idle       Location
-* 66 vty 0     aaa        idle                 00:00:00 192.168.6.150
+ 66 vty 0     aaa        idle                 00:00:00 192.168.6.150
   67 vty 1     aaa        idle                 00:00:03 192.168.6.150
   Interface    User               Mode         Idle     Peer Address
 BJ-BJ-ZU-V-2.test
@@ -88,7 +88,7 @@ BJ-BJ-ZU-V-2.test
 show users
     Line       User       Host(s)              Idle       Location
   66 vty 0     aaa        idle                 00:00:00 192.168.6.150
-* 67 vty 1     aaa        idle                 00:00:03 192.168.6.150
+ 67 vty 1     aaa        idle                 00:00:03 192.168.6.150
   Interface    User               Mode         Idle     Peer Address
 BJ-BJ-ZU-V-2.test
 ##################################1##################################
@@ -96,7 +96,7 @@ show users
     Line       User       Host(s)              Idle       Location
   66 vty 0     aaa        idle                 00:00:00 192.168.6.150
   67 vty 1     aaa        idle                 00:00:00 192.168.6.150
-* 69 vty 3     aaa        idle                 00:00:00 192.168.6.150
+ 69 vty 3     aaa        idle                 00:00:00 192.168.6.150
   Interface    User               Mode         Idle     Peer Address
 BJ-BJ-ZU-V-2.test
 ##################################2##################################

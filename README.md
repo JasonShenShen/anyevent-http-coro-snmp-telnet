@@ -105,7 +105,6 @@ BJ-BJ-ZU-V-2.test
 ##################################2##################################
 You have mail in /var/spool/mail/slview
 bash-4.1$ 
-```
 bash-4.1$ time curl http://192.168.6.150:18888?pretty -d '{
 >     "hostip": "192.168.6.87,192.168.6.87,192.168.6.87",
 >     "items": "ifhcinoctets"

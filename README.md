@@ -1,18 +1,18 @@
-#ÀûÓÃforkmanagerºÍanyevent-serverÊµÏÖÀàËÆnginxµÄsurpervisorºÍworkerÄ£Ê½
-nginxÆô¶¯ºó£¬»á¸ù¾ÝworkerÅäÖÃÊýÁ¿fork¶ÔÓ¦½ø³ÌÊý£¬Í¬Ê±Æô¶¯¸¸½ø³Ì×÷Îªsurpervisor£¬µ±worker½ø³ÌÊý¼õÉÙÊ±»á×Ô¶¯²¹³ä¶ÔÓ¦worker£¬ÎÒÃÇµÄÄ¿±êÊÇÀûÓÃforkmanagerÊµÏÖ¸Ã¹¦ÄÜ£¬Ìá¹©¸øhttpserverÊ¹ÓÃ¡£
+#åˆ©ç”¨forkmanagerå’Œanyevent-serverå®žçŽ°ç±»ä¼¼nginxçš„surpervisorå’Œworkeræ¨¡å¼
+nginxå¯åŠ¨åŽï¼Œä¼šæ ¹æ®workeré…ç½®æ•°é‡forkå¯¹åº”è¿›ç¨‹æ•°ï¼ŒåŒæ—¶å¯åŠ¨çˆ¶è¿›ç¨‹ä½œä¸ºsurpervisorï¼Œå½“workerè¿›ç¨‹æ•°å‡å°‘æ—¶ä¼šè‡ªåŠ¨è¡¥å……å¯¹åº”workerï¼Œæˆ‘ä»¬çš„ç›®æ ‡æ˜¯åˆ©ç”¨forkmanagerå®žçŽ°è¯¥åŠŸèƒ½ï¼Œæä¾›ç»™httpserverä½¿ç”¨ã€‚
 
-##Ë¼Â·
-* ÀûÓÃforkmanagerµÄon_startºÍon_finishÊÂ¼þ£¬¼ÇÂ¼½øÈëºÍÍË³öµÄ×Ó½ø³Ì£»
-* ÀûÓÃforkmanagerµÄstartºÍfinish¿ØÖÆ×Ü¿ªÆôÊýÁ¿£»
-* ¸¸½ø³Ì×¢²áTERM¡¢INT¡¢KILLÐÅºÅ£¬µ±ÍË³ö½ø³ÌºÅºÍ¸¸½ø³ÌÏàÍ¬£¬·¢ËÍtermÐÅºÅ¸ø¸÷¸ö×Ó½ø³ÌÖÕÖ¹
-* ×Ó½ø³ÌÊ¹ÓÃae signalÄ£¿é¼àÌýTERM¡¢INT¡¢KILLÈýÖÖÐÅºÅ¹Ø±ÕevÑ­»·²¢ÍË³ö
+##æ€è·¯
+* åˆ©ç”¨forkmanagerçš„on_startå’Œon_finishäº‹ä»¶ï¼Œè®°å½•è¿›å…¥å’Œé€€å‡ºçš„å­è¿›ç¨‹ï¼›
+* åˆ©ç”¨forkmanagerçš„startå’ŒfinishæŽ§åˆ¶æ€»å¼€å¯æ•°é‡ï¼›
+* çˆ¶è¿›ç¨‹æ³¨å†ŒTERMã€INTã€KILLä¿¡å·ï¼Œå½“é€€å‡ºè¿›ç¨‹å·å’Œçˆ¶è¿›ç¨‹ç›¸åŒï¼Œå‘é€termä¿¡å·ç»™å„ä¸ªå­è¿›ç¨‹ç»ˆæ­¢
+* å­è¿›ç¨‹ä½¿ç”¨ae signalæ¨¡å—ç›‘å¬TERMã€INTã€KILLä¸‰ç§ä¿¡å·å…³é—­evå¾ªçŽ¯å¹¶é€€å‡º
 
-##ÊµÏÖ
-* Æô¶¯5¸öÏß³Ìworker£¬curl²âÊÔ·þÎñÕý³£
+##å®žçŽ°
+* å¯åŠ¨5ä¸ªçº¿ç¨‹workerï¼Œcurlæµ‹è¯•æœåŠ¡æ­£å¸¸
 ```
 -bash-4.1# nohup perl anyevent-http-server.pl -t 5 &
 [1] 3999
--bash-4.1# nohup: ºöÂÔÊäÈë²¢°ÑÊä³ö×·¼Óµ½"nohup.out"
+-bash-4.1# nohup: å¿½ç•¥è¾“å…¥å¹¶æŠŠè¾“å‡ºè¿½åŠ åˆ°"nohup.out"
 -bash-4.1# ps -ef|grep anyevent-http-server.pl
 root      3999 27832  5 15:24 pts/3    00:00:00 perl anyevent-http-server.pl -t 5
 root      4000  3999  0 15:24 pts/3    00:00:00 perl anyevent-http-server.pl -t 5
@@ -23,7 +23,7 @@ root      4004  3999  0 15:24 pts/3    00:00:00 perl anyevent-http-server.pl -t 
 root      4008 27832  0 15:24 pts/3    00:00:00 grep anyevent-http-server.pl
 ```
 
-* ¹Ø±Õworker 4000£¬×Ô¶¯Æô¶¯ÐÂµÄworker 4017£¬·þÎñÃ»ÓÐÈÎºÎÓ°Ïì
+* å…³é—­worker 4000ï¼Œè‡ªåŠ¨å¯åŠ¨æ–°çš„worker 4017ï¼ŒæœåŠ¡æ²¡æœ‰ä»»ä½•å½±å“
 ```
 -bash-4.1# kill 4000
 -bash-4.1# ps -ef|grep anyevent-http-server.pl
@@ -36,7 +36,7 @@ root      4017  3999  0 15:24 pts/3    00:00:00 perl anyevent-http-server.pl -t 
 root      4021 27832  0 15:24 pts/3    00:00:00 grep anyevent-http-server.pl
 ```
 
-* ¹Ø±Õ¸¸½ø³Ì£¬ËùÓÐ½ø³Ì¹Ø±Õ
+* å…³é—­çˆ¶è¿›ç¨‹ï¼Œæ‰€æœ‰è¿›ç¨‹å…³é—­
 ```
 -bash-4.1# kill 3999
 -bash-4.1# ps -ef|grep anyevent-http-server.pl
@@ -45,27 +45,27 @@ root      4036 27832  0 15:24 pts/3    00:00:00 grep anyevent-http-server.pl
 ```
 
 ##benchmark
-###²¢·¢100 5000Á¬½Ó
-* 1 workerÄ£Ê½
+###å¹¶å‘100 5000è¿žæŽ¥
+* 1 workeræ¨¡å¼
 Requests per second:    682.94 [#/sec] (mean)
-* 5 workerÄ£Ê½
+* 5 workeræ¨¡å¼
 Requests per second:    4486.96 [#/sec] (mean)
 
-###²¢·¢1  5000Á¬½Ó
-* 1 workerÄ£Ê½
+###å¹¶å‘1  5000è¿žæŽ¥
+* 1 workeræ¨¡å¼
 Requests per second:    854.15 [#/sec] (mean)
-* 5 workerÄ£Ê½
+* 5 workeræ¨¡å¼
 Requests per second:    876.04 [#/sec] (mean)
 
-###´ò¿ªkeepalive ²¢·¢100 5000Á¬½Ó
+###æ‰“å¼€keepalive å¹¶å‘100 5000è¿žæŽ¥
 Requests per second:    5357.12 [#/sec] (mean)
 
 ##TODO
-receive http req to use coro get snmp¡¢telnet¡¢ssh session
+receive http req to use coro get snmpã€telnetã€ssh session
 
-#½ÓÊÕhttpÇëÇóºó£¬ÀûÓÃcoro-telnetºÍcoro-snmpÊµÏÖÐ­³Ì½¨Á¢ºÍÉè±¸½»»¥sessionÍê³ÉÇëÇóÖ¸±ê²¢·µ»Ø
-Í¨¹ýÐ­³Ì×é½øÐÐÉè±¸½»»¥£¬Ê¹ÓÃasync_pool¼àÌýÍê³É×´Ì¬£¬Í¨¹ýanyevent::timerÒì²½ÊµÏÖ×´Ì¬ºÍlogµÄresponse¡£
-¸½ÉÏhttpÇëÇóºÍtelnet·þÎñ½á¹û£¬·¢ËÍÒ»´ÎhttpÇëÇó£¬Çë50Ì¨Éè±¸×öshow usersÖ»Òª6ÃëÖÓ¾Í¿ÉÒÔ·µ»Ø
+#æŽ¥æ”¶httpè¯·æ±‚åŽï¼Œåˆ©ç”¨coro-telnetå’Œcoro-snmpå®žçŽ°åç¨‹å»ºç«‹å’Œè®¾å¤‡äº¤äº’sessionå®Œæˆè¯·æ±‚æŒ‡æ ‡å¹¶è¿”å›ž
+é€šè¿‡åç¨‹ç»„è¿›è¡Œè®¾å¤‡äº¤äº’ï¼Œä½¿ç”¨async_poolç›‘å¬å®ŒæˆçŠ¶æ€ï¼Œé€šè¿‡anyevent::timerå¼‚æ­¥å®žçŽ°çŠ¶æ€å’Œlogçš„responseã€‚
+é™„ä¸Šhttpè¯·æ±‚å’ŒtelnetæœåŠ¡ç»“æžœï¼Œå‘é€ä¸€æ¬¡httpè¯·æ±‚ï¼Œè¯·50å°è®¾å¤‡åšshow usersåªè¦6ç§’é’Ÿå°±å¯ä»¥è¿”å›ž
 ```
 -bash-4.3$ time curl http://127.0.0.10:19999?pretty -d '{
 >     "hostip": "1.1.1.1,2.2.2.2,3.3.3.3",
